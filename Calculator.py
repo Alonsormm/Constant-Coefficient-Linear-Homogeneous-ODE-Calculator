@@ -26,12 +26,22 @@ def candRaiz(dep,ind):
     return fin
 
 
-def segGrado(expresion,vec):
+def segundoGrado(expresion,vec):
     disc = (expresion[1]*expresion[1])-4*expresion[0]*expresion[2]
     if disc > 0:
+        vec.append((-expresion[1]+disc**(0.5))/(2*expresion[0]))
+        vec.append((-expresion[1]-disc**(0.5))/(2*expresion[0]))
+    elif disc == 0:
+        vec.append(-expresion[1]/(2*expresion[0]))
+        vec.append(-expresion[1]/(2*expresion[0]))
+    else:
+        vec.append(complex(-expresion[1]/(2*expresion[0]),(-disc)**(0.5)/(2*expresion[0])))
+        vec.append(complex(-expresion[1]/(2*expresion[0]),-(-disc)**(0.5)/(2*expresion[0])))
+        
 
 def divisionSintetica(expresion,vec):
-    if len(expresion) == 1:
+    if len(expresion) == 3:
+        segundoGrado(expresion,vec)
         return
     candidatos = candRaiz(expresion[0],expresion[-1])
     c = 0
