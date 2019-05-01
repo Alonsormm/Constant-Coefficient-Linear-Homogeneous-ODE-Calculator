@@ -39,7 +39,6 @@ def candRaiz(dep,ind):
     return fin
 
 
-<<<<<<< HEAD
 def segundoGrado(expresion, vec):
     a = expresion[2]
     b = expresion[1]
@@ -54,7 +53,8 @@ def segundoGrado(expresion, vec):
     else:
         vec.append(complex((-b)/(2*a),sqrt(-disc)/(2*a)))
         vec.append(complex((-b)/(2*a),-sqrt(-disc)/(2*a)))
-=======
+
+
 def segundoGrado(expresion,vec):
     disc = (expresion[1]*expresion[1])-4*expresion[0]*expresion[2]
     if disc > 0:
@@ -65,9 +65,6 @@ def segundoGrado(expresion,vec):
         vec.append(-expresion[1]/(2*expresion[0]))
     else:
         vec.append(complex(-expresion[1]/(2*expresion[0]),(-disc)**(0.5)/(2*expresion[0])))
-        vec.append(complex(-expresion[1]/(2*expresion[0]),-(-disc)**(0.5)/(2*expresion[0])))
-        
->>>>>>> 880f1de8cc4e2c4068cdab0c6293e8b420d0954b
 
 def divisionSintetica(expresion,vec):
     if len(expresion) == 3:
@@ -125,6 +122,74 @@ def expresionCaracteristica(expresion,grado):
 #
 
 def resultadoFinal(raices):
+    real = []
+    imag = []
+    final = ""
+    for i in raices:
+        if isinstance(i,complex):
+            imag.append(i)
+        else:
+            real.append(i)
+    real.sort()
+    while 8123:
+        if len(real) == 0:
+            break
+        raizTemp = real[0]
+        count = 0
+        for i in range(1,len(real)):
+            if real[i] != raizTemp:
+                break
+            count+=1
+        for i in range(count+1):
+            termino = ""
+            termino += "C"
+            if raizTemp == 0:
+                termino+="+"
+                real.pop(0)
+                final+=termino
+                continue
+            if i != 0:
+                if i == 1:
+                    termino+="x"
+                else:
+                    termino+= "x^("+str(i)+")"
+            if raizTemp != 1:
+                termino+="e^("+str(raizTemp)+"x)+"
+            else:
+                termino+="e^x"
+            real.pop(0)
+            final+=termino
+    for i in imag:
+        termino = ""
+        termino+= "C"
+        if i.real == 0:
+            if i.imag != 1:
+                termino += "cos(" + str(i.imag) + "x)+"
+                termino += "Csen(" + str(i.imag) + "x)+"
+            else:
+                termino += "cos(x)+"
+                termino += "Csen(x)"
+        else:
+            if i.real != 1:
+                if i.imag != 1:
+                    termino += "e^("+str(i.real)+"x)" + "cos(" + str(i.imag) + "x)+"
+                    termino += "Ce^("+str(i.real)+"x)" + "sen(" + str(i.imag) + "x)+"
+                else:
+                    termino += "e^("+str(i.real)+"x)" + "cos(x)+"
+                    termino += "Ce^("+str(i.real)+"x)" + "sen(x)+"
+            else:
+                if i.imag != 1:
+                    termino += "e^(x)" + "cos(" + str(i.imag) + "x)+"
+                    termino += "Ce^(x)" + "sen(" + str(i.imag) + "x)+"
+                else:
+                    termino += "e^(x)" + "cos(x)+"
+                    termino += "Ce^(x)" + "sen(x)+"
+        final += termino
+
+    if final[-1] == "+":
+        final = final [:-1]
+    final = "Yp = " + final
+    return final
 
 #
 #
@@ -133,21 +198,29 @@ def resultadoFinal(raices):
 #
 
 def obtenerCoef(campos):
+    expresion.clear()
+    raices.clear()
     for i in campos:
         expresion.append(int(i.get()))
     n = int(num.get())
     carac = Label(miFrame, text = "Expresion Caracteristica: " + expresionCaracteristica(expresion,n))
     carac.grid(row = n+3)
     divisionSintetica(expresion,raices)
+
     raizTemp = str(raices)
     raizLabel = Label(miFrame, text = "Raices: " + raizTemp)
     raizLabel.grid(row = n+4)
+    final = resultadoFinal(raices)
+    finalLabel = Label(miFrame, text = final)
+    finalLabel.grid(row = n+5)
 
 
 def generarVentana():
     n= int(num.get())
     print(n)
     campos = []
+    expresion.clear()
+    raices.clear()
     for i in range(0,n):
         campos.append(Entry(miFrame))
     for i in range(0,n):
