@@ -39,20 +39,6 @@ def candRaiz(dep,ind):
     return fin
 
 
-def segundoGrado(expresion, vec):
-    a = expresion[2]
-    b = expresion[1]
-    c = expresion[0]
-    disc = b*b-4*a*c
-    if(disc == 0):
-        vec.append(-b/(2*a))
-        vec.append(-b/(2*a))
-    elif(disc > 0):
-        vec.append((-b+sqrt(disc))/(2*a))
-        vec.append((-b-sqrt(disc))/(2*a))
-    else:
-        vec.append(complex((-b)/(2*a),sqrt(-disc)/(2*a)))
-        vec.append(complex((-b)/(2*a),-sqrt(-disc)/(2*a)))
 
 
 def segundoGrado(expresion,vec):
