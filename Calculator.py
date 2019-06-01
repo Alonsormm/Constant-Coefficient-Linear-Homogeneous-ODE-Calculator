@@ -82,16 +82,17 @@ def divisionSintetica(expresion,vec):
 
 def expresionCaracteristica(expresion,grado):
     carac = ""
+    print(expresion)
     for i in range(grado+1):
-        if expresion[grado-i] == 0:
+        if expresion[i] == 0:
             continue
-        elif expresion[grado-i] == 1:
+        elif expresion[i] == 1:
             if grado-i == 0:
                 m = "1"
             else:
                 m = ""
         else:
-            m = str(expresion[grado-i])
+            m = str(expresion[i])
         if grado-i == 0:
             m += ""
         elif grado-i == 1:
